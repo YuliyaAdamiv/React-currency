@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled, {createGlobalStyle} from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   body{
@@ -16,6 +16,9 @@ export const SelectCurrency = styled.select`
   font-size: 1rem;
   height: 3rem;
   width: 20rem;
+  border: 1px solid #7500d1;
+  color: #00bfff;
+  border-radius: 10px;
   background-color: #fff;
   :focus {
     outline: none;
@@ -38,13 +41,13 @@ export const CurrencyInfo = styled.div`
   & > p {
     font-size: 1.2rem;
     margin: 0;
-    color: #b0afbb;
+    color: #7500d1;
   }
 
   & > h4 {
     margin: 0 0 0 1.2rem;
     font-size: 1.2rem;
-    color: #4b4897;
+    color: #7500d1;
   }
 `;
 export const CurrencyConverter = styled.div`
@@ -64,14 +67,14 @@ export const Image = styled.img`
 export const Input = styled.input`
   width: 14rem;
   padding: 0.7em;
-  border: 1px solid #dbe2e8;
-  color: #2e3d49;
+  border: 1px solid #7500d1;
+  color: #00bfff;
   max-width: 50rem;
   margin-right: 2.5rem;
   outline: none;
   height: 3rem;
   font-size: 0.9rem;
-  border-radius: 5px;
+  border-radius: 10px;
 `;
 
 export const Error = styled.div`

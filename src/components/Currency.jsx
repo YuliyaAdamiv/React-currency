@@ -1,6 +1,5 @@
-import React, { Fragment, useEffect } from "react";
-import { connect } from "react-redux";
-import switchIco from "./switch.svg";
+import React, {Fragment, useEffect} from 'react';
+import {connect} from 'react-redux';
 
 import {
   GlobalStyle,
@@ -10,10 +9,9 @@ import {
   CurrencyInfo,
   Input,
   Loading,
-  Image
-} from "../styles";
+} from './styles';
 
-import { Select } from "../Select";
+import {Select} from './Select';
 
 import {
   getRate,
@@ -21,11 +19,12 @@ import {
   toChangeInput,
   fromCurrencyChange,
   toCurrencyChange,
-  handleSwitch
-} from "../../store/actions/currencyActions";
+  handleSwitch,
+} from '../store/actions/currencyActions';
 
-import currencyExchangeList from "../../consts/CurrencyCodes";
-import { displayCurrency } from "../../utils/currencyUtils";
+import currencyExchangeList from '../consts/CurrencyCodes';
+import {displayCurrency} from '../utils/currencyUtils';
+import Header from './Header';
 
 function Currency({
   error,
@@ -39,10 +38,11 @@ function Currency({
   toChangeInput,
   toCurrencyChange,
   handleSwitch,
-  getRate
+  getRate,
 }) {
   useEffect(() => {
     getRate(convertFrom, convertTo);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const currencyList = Object.values(currencyExchangeList);
@@ -53,20 +53,21 @@ function Currency({
       {!isFetched && !error && <Loading>Loading...</Loading>}
       {isFetched && (
         <AppWrapper>
+          <Header />
           <CurrencyInfo>
             <p>
               {displayCurrency({
                 currencyList,
                 currencyId: convertFrom,
-                number: from
-              })}{" "}
-              equals{" "}
+                number: from,
+              })}{' '}
+              equals{' '}
             </p>
             <h4>
               {displayCurrency({
                 currencyList,
                 currencyId: convertTo,
-                number: to
+                number: to,
               })}
             </h4>
           </CurrencyInfo>
@@ -75,31 +76,25 @@ function Currency({
             <Input
               type="number"
               value={from}
-              onChange={e => fromChangeInput(e.target.value)}
+              onChange={(e) => fromChangeInput(e.target.value)}
             />
 
             <Select
               value={convertFrom}
-              onChange={e => fromCurrencyChange(e.target.value)}
+              onChange={(e) => fromCurrencyChange(e.target.value)}
               currencyList={currencyList}
             />
           </CurrencyConverter>
-          <Image
-              onClick={handleSwitch}
-              width="50"
-              src={switchIco}
-              alt="Switch"
-          />
           <CurrencyConverter>
             <Input
               type="number"
               value={to}
-              onChange={e => toChangeInput(e.target.value)}
+              onChange={(e) => toChangeInput(e.target.value)}
             />
 
             <Select
               value={convertTo}
-              onChange={e => toCurrencyChange(e.target.value)}
+              onChange={(e) => toCurrencyChange(e.target.value)}
               currencyList={currencyList}
             />
           </CurrencyConverter>
@@ -109,7 +104,7 @@ function Currency({
   );
 }
 
-const mapStateToProps = ({ currency }) => ({
+const mapStateToProps = ({currency}) => ({
   currency: currency.data,
   error: currency.error,
   isFetched: currency.isFetched,
@@ -122,31 +117,28 @@ const mapStateToProps = ({ currency }) => ({
   fromCurrencyChange: currency.fromCurrencyChange,
   toCurrencyChange: currency.toCurrencyChange,
   handleSwitch: currency.handleSwitch,
-  getRate: currency.getRate
+  getRate: currency.getRate,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getRate: (fromCurrency, toCurrency) => {
     dispatch(getRate(fromCurrency, toCurrency));
   },
-  toChangeInput: value => {
+  toChangeInput: (value) => {
     dispatch(toChangeInput(value));
   },
-  fromChangeInput: value => {
+  fromChangeInput: (value) => {
     dispatch(fromChangeInput(value));
   },
-  fromCurrencyChange: payload => {
+  fromCurrencyChange: (payload) => {
     dispatch(fromCurrencyChange(payload));
   },
-  toCurrencyChange: payload => {
+  toCurrencyChange: (payload) => {
     dispatch(toCurrencyChange(payload));
   },
-  handleSwitch: payload => {
+  handleSwitch: (payload) => {
     dispatch(handleSwitch(payload));
-  }
+  },
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Currency);
+export default connect(mapStateToProps, mapDispatchToProps)(Currency);
